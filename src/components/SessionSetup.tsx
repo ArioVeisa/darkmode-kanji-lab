@@ -12,23 +12,25 @@ import {
 import { Input } from '@/components/ui/input';
 import { useKanji } from '@/context/KanjiContext';
 import { Slider } from '@/components/ui/slider';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const SessionSetup: React.FC = () => {
   const { startPracticeSession, startTestSession } = useKanji();
   const [kanjiCount, setKanjiCount] = useState(10);
+  const isMobile = useIsMobile();
   
   return (
-    <div className="w-full max-w-md mx-auto px-4 py-8 animate-fade-in">
+    <div className="w-full max-w-md mx-auto px-2 sm:px-4 py-4 sm:py-8 animate-fade-in">
       <Card className="bg-card/70 backdrop-blur-sm border border-white/10">
-        <CardHeader>
-          <CardTitle className="text-2xl font-light tracking-wide text-center">Kanji Study</CardTitle>
-          <CardDescription className="text-center">
+        <CardHeader className="px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="text-xl sm:text-2xl font-light tracking-wide text-center">Kanji Study</CardTitle>
+          <CardDescription className="text-center text-sm sm:text-base">
             Choose your study mode and number of kanji cards
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
           <div className="space-y-2">
-            <label htmlFor="kanjiCount" className="text-sm font-medium">
+            <label htmlFor="kanjiCount" className="text-xs sm:text-sm font-medium">
               Number of kanji: <span className="font-bold">{kanjiCount}</span>
             </label>
             <Slider
@@ -42,12 +44,12 @@ const SessionSetup: React.FC = () => {
             />
           </div>
           
-          <div className="flex flex-col space-y-3 pt-4">
-            <h3 className="text-sm font-medium mb-2">Select Study Mode</h3>
+          <div className="flex flex-col space-y-3 pt-2 sm:pt-4">
+            <h3 className="text-xs sm:text-sm font-medium mb-1 sm:mb-2">Select Study Mode</h3>
             <Button 
               variant="outline" 
-              size="lg"
-              className="w-full py-6 bg-secondary/50 hover:bg-secondary border border-white/10 hover:border-white/20"
+              size={isMobile ? "default" : "lg"}
+              className="w-full py-4 sm:py-6 bg-secondary/50 hover:bg-secondary border border-white/10 hover:border-white/20"
               onClick={() => startPracticeSession(kanjiCount)}
             >
               Practice Mode
@@ -58,8 +60,8 @@ const SessionSetup: React.FC = () => {
             
             <Button 
               variant="outline"
-              size="lg"
-              className="w-full py-6 bg-secondary/50 hover:bg-secondary border border-white/10 hover:border-white/20"
+              size={isMobile ? "default" : "lg"}
+              className="w-full py-4 sm:py-6 bg-secondary/50 hover:bg-secondary border border-white/10 hover:border-white/20"
               onClick={() => startTestSession(kanjiCount)}
             >
               Test Mode
